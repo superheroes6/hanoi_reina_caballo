@@ -1,4 +1,5 @@
 import sqlite3
+import gradio as gr
 
 class SQL:
 
@@ -41,3 +42,15 @@ def knight_moves_count(moves):
     for start in range(10):
         total_moves += dfs(start, moves)
     return total_moves
+
+def knight_moves_interface(moves):
+    return knight_moves_count(moves)
+
+with gr.Blocks() as demo:
+    gr.Markdown("# Movimientos del Caballo")
+    moves = gr.Number(label="Número de movimientos", value=2)
+    output = gr.Textbox(label="Movimientos válidos")
+    button = gr.Button("Calcular")
+    button.click(knight_moves_interface, inputs=[moves], outputs=output)
+
+# demo.launch()  # Descomentar si se desea ejecutar directamente desde este archivo.
