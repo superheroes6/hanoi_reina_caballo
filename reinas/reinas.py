@@ -1,3 +1,22 @@
+import sqlite3
+
+class SQL:
+
+    def __init__(self, db_name):
+        self.connection = sqlite3.connect(db_name)
+        self.cursor = self.connection.cursor()
+
+    def ejecutar(self, query, params=()):
+        self.cursor.execute(query, params)
+        self.connection.commit()
+
+    def consultar(self, query, params=()):
+        self.cursor.execute(query, params)
+        return self.cursor.fetchall()
+
+    def cerrar(self):
+        self.connection.close()
+
 def solve_n_queens(n):
 
     def is_safe(board, row, col):
