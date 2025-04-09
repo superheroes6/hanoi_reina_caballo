@@ -2,29 +2,6 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-def solve_n_queens(n):
-
-    def is_safe(board, row, col):
-        for i in range(col):
-            if board[i] == row or \
-               board[i] - i == row - col or \
-               board[i] + i == row + col:
-                return False
-        return True
-
-    def solve(col, board, solutions):
-        if col == n:
-            solutions.append(board[:])
-            return
-        for row in range(n):
-            if is_safe(board, row, col):
-                board[col] = row
-                solve(col + 1, board, solutions)
-
-    solutions = []
-    solve(0, [-1] * n, solutions)
-    return solutions
-
 def show_n_queens_result():
     n = int(entry_reinas.get())
     image_path = f"images/n_queens_{n}.png"
@@ -57,4 +34,3 @@ label_image.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
 
 # Ejecutar la aplicación
 root.mainloop()
-

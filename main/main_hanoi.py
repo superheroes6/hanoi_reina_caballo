@@ -1,13 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-
-def hanoi(n, source, target, auxiliary):
-    if n == 1:
-        return [(source, target)]
-    moves = hanoi(n - 1, source, auxiliary, target)
-    moves.append((source, target))
-    moves.extend(hanoi(n - 1, auxiliary, target, source))
-    return moves
+from hanoi.hanoi import hanoi
 
 def show_hanoi_result():
     n = int(entry_disks.get())
@@ -53,4 +46,3 @@ result_text.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
 
 # Ejecutar la aplicación
 root.mainloop()
-
