@@ -3,9 +3,9 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-def knight_moves_count(moves):
+def contar_movimientos_caballo(movimientos):
 
-    keypad = {
+    teclado = {
         0: [4, 6],
         1: [6, 8],
         2: [7, 9],
@@ -18,46 +18,46 @@ def knight_moves_count(moves):
         9: [2, 4]
     }
 
-    def dfs(position, remaining_moves):
-        if remaining_moves == 0:
+    def dfs(posicion, movimientos_restantes):
+        if movimientos_restantes == 0:
             return 1
-        return sum(dfs(next_pos, remaining_moves - 1) for next_pos in keypad[position])
+        return sum(dfs(siguiente, movimientos_restantes - 1) for siguiente in teclado[posicion])
 
-    total_moves = 0
-    for start in range(10):
-        total_moves += dfs(start, moves)
-    return total_moves
+    total_movimientos = 0
+    for inicio in range(10):
+        total_movimientos += dfs(inicio, movimientos)
+    return total_movimientos
 
-def show_knight_moves_result():
-    moves = int(entry_moves.get())
-    image_path = f"images/knight_moves_{moves}.png"
+def mostrar_resultado_movimientos_caballo():
+    movimientos = int(entrada_movimientos.get())
+    ruta_imagen = f"images/knight_moves_{movimientos}.png"
     try:
-        img = Image.open(image_path)
+        img = Image.open(ruta_imagen)
         img = img.resize((400, 400), Image.ANTIALIAS)
         img_tk = ImageTk.PhotoImage(img)
-        label_image.config(image=img_tk)
-        label_image.image = img_tk
+        etiqueta_imagen.config(image=img_tk)
+        etiqueta_imagen.image = img_tk
     except FileNotFoundError:
-        label_image.config(text=f"No se encontró la imagen para {moves} movimientos en '{image_path}'.")
+        etiqueta_imagen.config(text=f"No se encontró la imagen para {movimientos} movimientos en '{ruta_imagen}'.")
 
 # Crear la ventana principal
-root = tk.Tk()
-root.title("Movimientos del Caballo")
+raiz = tk.Tk()
+raiz.title("Movimientos del Caballo")
 
 # Entradas
-ttk.Label(root, text="Número de movimientos:").grid(row=0, column=0, padx=5, pady=5)
-entry_moves = ttk.Entry(root)
-entry_moves.grid(row=0, column=1, padx=5, pady=5)
-entry_moves.insert(0, "2")
+ttk.Label(raiz, text="Número de movimientos:").grid(row=0, column=0, padx=5, pady=5)
+entrada_movimientos = ttk.Entry(raiz)
+entrada_movimientos.grid(row=0, column=1, padx=5, pady=5)
+entrada_movimientos.insert(0, "2")
 
 # Botón para calcular
-button_calculate = ttk.Button(root, text="Mostrar movimientos", command=show_knight_moves_result)
-button_calculate.grid(row=1, column=0, columnspan=2, pady=10)
+boton_calcular = ttk.Button(raiz, text="Mostrar movimientos", command=mostrar_resultado_movimientos_caballo)
+boton_calcular.grid(row=1, column=0, columnspan=2, pady=10)
 
 # Etiqueta para mostrar la imagen
-label_image = ttk.Label(root)
-label_image.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
+etiqueta_imagen = ttk.Label(raiz)
+etiqueta_imagen.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
 
 # Ejecutar la aplicación
-root.mainloop()
+raiz.mainloop()
 

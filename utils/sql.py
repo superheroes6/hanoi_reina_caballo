@@ -4,40 +4,40 @@ class SQL:
     """
     Clase para manejar operaciones básicas con SQLite.
     """
-    def __init__(self, db_name):
-        self.connection = sqlite3.connect(db_name)
-        self.cursor = self.connection.cursor()
+    def __init__(self, nombre_bd):
+        self.conexion = sqlite3.connect(nombre_bd)
+        self.cursor = self.conexion.cursor()
 
-    def ejecutar(self, query, params=()):
-        self.cursor.execute(query, params)
-        self.connection.commit()
+    def ejecutar(self, consulta, parametros=()):
+        self.cursor.execute(consulta, parametros)
+        self.conexion.commit()
 
-    def consultar(self, query, params=()):
-        self.cursor.execute(query, params)
+    def consultar(self, consulta, parametros=()):
+        self.cursor.execute(consulta, parametros)
         return self.cursor.fetchall()
 
     def cerrar(self):
-        self.connection.close()
+        self.conexion.close()
 
     def crear_tabla(self, tabla, columnas):
         """
         Crea una tabla en la base de datos.
         :param tabla: Nombre de la tabla.
-        :param columnas: Definición de las columnas (ejemplo: "id INTEGER PRIMARY KEY, name TEXT").
+        :param columnas: Definición de las columnas (ejemplo: "id INTEGER PRIMARY KEY, nombre TEXT").
         """
-        query = f"CREATE TABLE IF NOT EXISTS {tabla} ({columnas})"
-        self.ejecutar(query)
+        consulta = f"CREATE TABLE IF NOT EXISTS {tabla} ({columnas})"
+        self.ejecutar(consulta)
 
     def insertar(self, tabla, columnas, valores):
         """
         Inserta un registro en la tabla.
         :param tabla: Nombre de la tabla.
-        :param columnas: Columnas donde se insertarán los valores (ejemplo: "name, age").
+        :param columnas: Columnas donde se insertarán los valores (ejemplo: "nombre, edad").
         :param valores: Valores a insertar como tupla.
         """
-        placeholders = ", ".join(["?"] * len(valores))
-        query = f"INSERT INTO {tabla} ({columnas}) VALUES ({placeholders})"
-        self.ejecutar(query, valores)
+        marcadores = ", ".join(["?"] * len(valores))
+        consulta = f"INSERT INTO {tabla} ({columnas}) VALUES ({marcadores})"
+        self.ejecutar(consulta, valores)
 
     def obtener_todos(self, tabla):
         """
@@ -45,5 +45,5 @@ class SQL:
         :param tabla: Nombre de la tabla.
         :return: Lista de registros.
         """
-        query = f"SELECT * FROM {tabla}"
-        return self.consultar(query)
+        consulta = f"SELECT * FROM {tabla}"
+        return self.consultar(consulta)

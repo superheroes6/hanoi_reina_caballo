@@ -1,56 +1,56 @@
 import tkinter as tk
 from tkinter import ttk
 
-def hanoi(n, source, target, auxiliary):
+def hanoi(n, origen, destino, auxiliar):
     if n == 1:
-        return [(source, target)]
-    moves = hanoi(n - 1, source, auxiliary, target)
-    moves.append((source, target))
-    moves.extend(hanoi(n - 1, auxiliary, target, source))
-    return moves
+        return [(origen, destino)]
+    movimientos = hanoi(n - 1, origen, auxiliar, destino)
+    movimientos.append((origen, destino))
+    movimientos.extend(hanoi(n - 1, auxiliar, destino, origen))
+    return movimientos
 
-def show_hanoi_result():
-    n = int(entry_disks.get())
-    source = entry_source.get()
-    target = entry_target.get()
-    auxiliary = entry_auxiliary.get()
-    result = hanoi(n, source, target, auxiliary)
-    result_text.delete(1.0, tk.END)
-    result_text.insert(tk.END, "\n".join([f"{move[0]} -> {move[1]}" for move in result]))
+def mostrar_resultado_hanoi():
+    n = int(entrada_discos.get())
+    origen = entrada_origen.get()
+    destino = entrada_destino.get()
+    auxiliar = entrada_auxiliar.get()
+    resultado = hanoi(n, origen, destino, auxiliar)
+    texto_resultado.delete(1.0, tk.END)
+    texto_resultado.insert(tk.END, "\n".join([f"{movimiento[0]} -> {movimiento[1]}" for movimiento in resultado]))
 
 # Crear la ventana principal
-root = tk.Tk()
-root.title("Resolver Hanoi")
+raiz = tk.Tk()
+raiz.title("Resolver Hanoi")
 
 # Entradas
-ttk.Label(root, text="Número de discos:").grid(row=0, column=0, padx=5, pady=5)
-entry_disks = ttk.Entry(root)
-entry_disks.grid(row=0, column=1, padx=5, pady=5)
-entry_disks.insert(0, "3")
+ttk.Label(raiz, text="Número de discos:").grid(row=0, column=0, padx=5, pady=5)
+entrada_discos = ttk.Entry(raiz)
+entrada_discos.grid(row=0, column=1, padx=5, pady=5)
+entrada_discos.insert(0, "3")
 
-ttk.Label(root, text="Torre de origen:").grid(row=1, column=0, padx=5, pady=5)
-entry_source = ttk.Entry(root)
-entry_source.grid(row=1, column=1, padx=5, pady=5)
-entry_source.insert(0, "A")
+ttk.Label(raiz, text="Torre de origen:").grid(row=1, column=0, padx=5, pady=5)
+entrada_origen = ttk.Entry(raiz)
+entrada_origen.grid(row=1, column=1, padx=5, pady=5)
+entrada_origen.insert(0, "A")
 
-ttk.Label(root, text="Torre de destino:").grid(row=2, column=0, padx=5, pady=5)
-entry_target = ttk.Entry(root)
-entry_target.grid(row=2, column=1, padx=5, pady=5)
-entry_target.insert(0, "C")
+ttk.Label(raiz, text="Torre de destino:").grid(row=2, column=0, padx=5, pady=5)
+entrada_destino = ttk.Entry(raiz)
+entrada_destino.grid(row=2, column=1, padx=5, pady=5)
+entrada_destino.insert(0, "C")
 
-ttk.Label(root, text="Torre auxiliar:").grid(row=3, column=0, padx=5, pady=5)
-entry_auxiliary = ttk.Entry(root)
-entry_auxiliary.grid(row=3, column=1, padx=5, pady=5)
-entry_auxiliary.insert(0, "B")
+ttk.Label(raiz, text="Torre auxiliar:").grid(row=3, column=0, padx=5, pady=5)
+entrada_auxiliar = ttk.Entry(raiz)
+entrada_auxiliar.grid(row=3, column=1, padx=5, pady=5)
+entrada_auxiliar.insert(0, "B")
 
 # Botón para calcular
-button_calculate = ttk.Button(root, text="Resolver", command=show_hanoi_result)
-button_calculate.grid(row=4, column=0, columnspan=2, pady=10)
+boton_calcular = ttk.Button(raiz, text="Resolver", command=mostrar_resultado_hanoi)
+boton_calcular.grid(row=4, column=0, columnspan=2, pady=10)
 
 # Área de texto para mostrar el resultado
-result_text = tk.Text(root, height=15, width=40)
-result_text.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
+texto_resultado = tk.Text(raiz, height=15, width=40)
+texto_resultado.grid(row=5, column=0, columnspan=2, padx=5, pady=5)
 
 # Ejecutar la aplicación
-root.mainloop()
+raiz.mainloop()
 

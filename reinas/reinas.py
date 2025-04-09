@@ -2,59 +2,59 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 
-def solve_n_queens(n):
+def resolver_n_reinas(n):
 
-    def is_safe(board, row, col):
-        for i in range(col):
-            if board[i] == row or \
-               board[i] - i == row - col or \
-               board[i] + i == row + col:
+    def es_seguro(tablero, fila, columna):
+        for i in range(columna):
+            if tablero[i] == fila or \
+               tablero[i] - i == fila - columna or \
+               tablero[i] + i == fila + columna:
                 return False
         return True
 
-    def solve(col, board, solutions):
-        if col == n:
-            solutions.append(board[:])
+    def resolver(columna, tablero, soluciones):
+        if columna == n:
+            soluciones.append(tablero[:])
             return
-        for row in range(n):
-            if is_safe(board, row, col):
-                board[col] = row
-                solve(col + 1, board, solutions)
+        for fila in range(n):
+            if es_seguro(tablero, fila, columna):
+                tablero[columna] = fila
+                resolver(columna + 1, tablero, soluciones)
 
-    solutions = []
-    solve(0, [-1] * n, solutions)
-    return solutions
+    soluciones = []
+    resolver(0, [-1] * n, soluciones)
+    return soluciones
 
-def show_n_queens_result():
-    n = int(entry_reinas.get())
-    image_path = f"images/n_queens_{n}.png"
+def mostrar_resultado_reinas():
+    n = int(entrada_reinas.get())
+    ruta_imagen = f"images/n_queens_{n}.png"
     try:
-        img = Image.open(image_path)
+        img = Image.open(ruta_imagen)
         img = img.resize((400, 400), Image.ANTIALIAS)
         img_tk = ImageTk.PhotoImage(img)
-        label_image.config(image=img_tk)
-        label_image.image = img_tk
+        etiqueta_imagen.config(image=img_tk)
+        etiqueta_imagen.image = img_tk
     except FileNotFoundError:
-        label_image.config(text=f"No se encontró la imagen para {n} reinas en '{image_path}'.")
+        etiqueta_imagen.config(text=f"No se encontró la imagen para {n} reinas en '{ruta_imagen}'.")
 
 # Crear la ventana principal
-root = tk.Tk()
-root.title("Resolver N-Reinas")
+raiz = tk.Tk()
+raiz.title("Resolver N-Reinas")
 
 # Entradas
-ttk.Label(root, text="Número de reinas:").grid(row=0, column=0, padx=5, pady=5)
-entry_reinas = ttk.Entry(root)
-entry_reinas.grid(row=0, column=1, padx=5, pady=5)
-entry_reinas.insert(0, "4")
+ttk.Label(raiz, text="Número de reinas:").grid(row=0, column=0, padx=5, pady=5)
+entrada_reinas = ttk.Entry(raiz)
+entrada_reinas.grid(row=0, column=1, padx=5, pady=5)
+entrada_reinas.insert(0, "4")
 
 # Botón para calcular
-button_calculate = ttk.Button(root, text="Mostrar solución", command=show_n_queens_result)
-button_calculate.grid(row=1, column=0, columnspan=2, pady=10)
+boton_calcular = ttk.Button(raiz, text="Mostrar solución", command=mostrar_resultado_reinas)
+boton_calcular.grid(row=1, column=0, columnspan=2, pady=10)
 
 # Etiqueta para mostrar la imagen
-label_image = ttk.Label(root)
-label_image.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
+etiqueta_imagen = ttk.Label(raiz)
+etiqueta_imagen.grid(row=2, column=0, columnspan=2, padx=5, pady=5)
 
 # Ejecutar la aplicación
-root.mainloop()
+raiz.mainloop()
 
