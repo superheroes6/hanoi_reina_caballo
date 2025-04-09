@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 
 def show_knight_moves_result():
     moves = int(entry_moves.get())
-    image_path = f"images/knight_moves_{moves}.png"
+    image_path = f"c:/Users/santi/OneDrive/Documentos/GitHub/hanoi_reina_caballo/images/knight_moves_{moves}.png"
     try:
         img = Image.open(image_path)
         img = img.resize((400, 400), Image.ANTIALIAS)

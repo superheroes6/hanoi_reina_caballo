@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 
 def show_n_queens_result():
     n = int(entry_reinas.get())
-    image_path = f"images/n_queens_{n}.png"
+    image_path = f"c:/Users/santi/OneDrive/Documentos/GitHub/hanoi_reina_caballo/images/n_queens_{n}.png"
     try:
         img = Image.open(image_path)
         img = img.resize((400, 400), Image.ANTIALIAS)
